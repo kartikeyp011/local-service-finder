@@ -1,0 +1,169 @@
+Folder PATH listing for volume Kartikey
+Volume serial number is 9EF1-6BC7
+K:.
+¦   404.html
+¦   about.html
+¦   category.html
+¦   contact.html
+¦   index.html
+¦   job-detail.html
+¦   job-list.html
+¦   job-portal-website-template.jpg
+¦   LICENSE.txt
+¦   READ-ME.txt
+¦   structure.txt
+¦   testimonial.html
+¦   
++---css
+¦       bootstrap.min.css
+¦       style.css
+¦       
++---img
+¦       about-1.jpg
+¦       about-2.jpg
+¦       about-3.jpg
+¦       about-4.jpg
+¦       carousel-1.jpg
+¦       carousel-2.jpg
+¦       com-logo-1.jpg
+¦       com-logo-2.jpg
+¦       com-logo-3.jpg
+¦       com-logo-4.jpg
+¦       com-logo-5.jpg
+¦       testimonial-1.jpg
+¦       testimonial-2.jpg
+¦       testimonial-3.jpg
+¦       testimonial-4.jpg
+¦       
++---js
+¦       main.js
+¦       
++---lib
+¦   +---animate
+¦   ¦       animate.css
+¦   ¦       animate.min.css
+¦   ¦       
+¦   +---easing
+¦   ¦       easing.js
+¦   ¦       easing.min.js
+¦   ¦       
+¦   +---owlcarousel
+¦   ¦   ¦   LICENSE
+¦   ¦   ¦   owl.carousel.js
+¦   ¦   ¦   owl.carousel.min.js
+¦   ¦   ¦   
+¦   ¦   +---assets
+¦   ¦           ajax-loader.gif
+¦   ¦           owl.carousel.css
+¦   ¦           owl.carousel.min.css
+¦   ¦           owl.theme.default.css
+¦   ¦           owl.theme.default.min.css
+¦   ¦           owl.theme.green.css
+¦   ¦           owl.theme.green.min.css
+¦   ¦           owl.video.play.png
+¦   ¦           
+¦   +---waypoints
+¦   ¦       links.php
+¦   ¦       waypoints.min.js
+¦   ¦       
+¦   +---wow
+¦           wow.js
+¦           wow.min.js
+¦           
++---scss
+    ¦   bootstrap.scss
+    ¦   
+    +---bootstrap
+        +---scss
+            ¦   bootstrap-grid.scss
+            ¦   bootstrap-reboot.scss
+            ¦   bootstrap-utilities.scss
+            ¦   bootstrap.scss
+            ¦   _accordion.scss
+            ¦   _alert.scss
+            ¦   _badge.scss
+            ¦   _breadcrumb.scss
+            ¦   _button-group.scss
+            ¦   _buttons.scss
+            ¦   _card.scss
+            ¦   _carousel.scss
+            ¦   _close.scss
+            ¦   _containers.scss
+            ¦   _dropdown.scss
+            ¦   _forms.scss
+            ¦   _functions.scss
+            ¦   _grid.scss
+            ¦   _helpers.scss
+            ¦   _images.scss
+            ¦   _list-group.scss
+            ¦   _mixins.scss
+            ¦   _modal.scss
+            ¦   _nav.scss
+            ¦   _navbar.scss
+            ¦   _offcanvas.scss
+            ¦   _pagination.scss
+            ¦   _popover.scss
+            ¦   _progress.scss
+            ¦   _reboot.scss
+            ¦   _root.scss
+            ¦   _spinners.scss
+            ¦   _tables.scss
+            ¦   _toasts.scss
+            ¦   _tooltip.scss
+            ¦   _transitions.scss
+            ¦   _type.scss
+            ¦   _utilities.scss
+            ¦   _variables.scss
+            ¦   
+            +---forms
+            ¦       _floating-labels.scss
+            ¦       _form-check.scss
+            ¦       _form-control.scss
+            ¦       _form-range.scss
+            ¦       _form-select.scss
+            ¦       _form-text.scss
+            ¦       _input-group.scss
+            ¦       _labels.scss
+            ¦       _validation.scss
+            ¦       
+            +---helpers
+            ¦       _clearfix.scss
+            ¦       _colored-links.scss
+            ¦       _position.scss
+            ¦       _ratio.scss
+            ¦       _stretched-link.scss
+            ¦       _text-truncation.scss
+            ¦       _visually-hidden.scss
+            ¦       
+            +---mixins
+            ¦       _alert.scss
+            ¦       _border-radius.scss
+            ¦       _box-shadow.scss
+            ¦       _breakpoints.scss
+            ¦       _buttons.scss
+            ¦       _caret.scss
+            ¦       _clearfix.scss
+            ¦       _color-scheme.scss
+            ¦       _container.scss
+            ¦       _deprecate.scss
+            ¦       _forms.scss
+            ¦       _gradients.scss
+            ¦       _grid.scss
+            ¦       _image.scss
+            ¦       _list-group.scss
+            ¦       _lists.scss
+            ¦       _pagination.scss
+            ¦       _reset-text.scss
+            ¦       _resize.scss
+            ¦       _table-variants.scss
+            ¦       _text-truncate.scss
+            ¦       _transition.scss
+            ¦       _utilities.scss
+            ¦       _visually-hidden.scss
+            ¦       
+            +---utilities
+            ¦       _api.scss
+            ¦       
+            +---vendor
+                    _rfs.scss
+                    
