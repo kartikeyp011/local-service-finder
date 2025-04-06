@@ -1,11 +1,9 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'provider') {
-    $_SESSION['redirect_after_login'] = basename($_SERVER['PHP_SELF']);
     header("Location: login.php");
     exit;
 }
-
 
 $conn = new mysqli("localhost", "root", "", "local_service_finder");
 
@@ -13,6 +11,7 @@ $success = "";
 $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $title = trim($_POST["title"]);
     $category = trim($_POST["category"]);
     $description = trim($_POST["description"]);
     $location = trim($_POST["location"]);
@@ -20,8 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $provider_id = $_SESSION["user_id"];
 
     if ($title && $category && $price) {
-        $stmt = $conn->prepare("INSERT INTO services (provider_id, category, description, location, price) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("isssd", $provider_id, $category, $description, $location, $price);
+        $stmt = $conn->prepare("INSERT INTO services (provider_id, title, category, description, location, price) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("issssd", $provider_id, $title, $category, $description, $location, $price);
 
         if ($stmt->execute()) {
             $success = "Service added successfully!";
@@ -55,6 +54,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php endif; ?>
 
     <form method="post">
+        <div class="mb-3">
+            <label class="form-label">Service Title *</label>
+            <input type="text" name="title" class="form-control" required>
+        </div>
 
         <div class="mb-3">
             <label class="form-label">Category *</label>

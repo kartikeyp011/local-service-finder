@@ -31,6 +31,7 @@ $result = $conn->query("SELECT * FROM services WHERE provider_id = $provider_id 
         <table class="table table-bordered bg-white mt-3">
             <thead class="table-light">
                 <tr>
+                    <th>Title</th>
                     <th>Category</th>
                     <th>Location</th>
                     <th>Price (₹)</th>
@@ -40,7 +41,7 @@ $result = $conn->query("SELECT * FROM services WHERE provider_id = $provider_id 
             <tbody>
                 <?php while ($service = $result->fetch_assoc()): ?>
                     <tr>
-                        <td><?= htmlspecialchars($service['category']); ?></td>
+                        <td><?= htmlspecialchars($service['title']); ?></td>
                         <td><?= htmlspecialchars($service['category']); ?></td>
                         <td><?= htmlspecialchars($service['location']); ?></td>
                         <td><?= number_format($service['price'], 2); ?></td>
