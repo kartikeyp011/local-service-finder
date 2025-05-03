@@ -3,7 +3,7 @@
             <div class="container py-5">
                 <div class="row g-5">
                     <div class="col-lg-3 col-md-6">
-                        <h5 class="text-white mb-4">Company</h5>
+                        <h5 class="text-white mb-4">LocalServiceFinder</h5>
                         <a class="btn btn-link text-white-50" href="about.php">About Us</a>
                         <a class="btn btn-link text-white-50" href="contact.php">Contact Us</a>
                         <a class="btn btn-link text-white-50" href="services.php">Our Services</a>
@@ -11,7 +11,7 @@
                         <a class="btn btn-link text-white-50" href="#">Terms & Conditions</a>
                     </div>
                     <div class="col-lg-3 col-md-6">
-                        <h5 class="text-white mb-4">Quick Links</h5>
+                        <h5 class="text-white mb-4">Navigation</h5>
                         <a class="btn btn-link text-white-50" href="index.php">Home</a>
                         <a class="btn btn-link text-white-50" href="services.php">Browse Services</a>
                         <a class="btn btn-link text-white-50" href="login.php">Login</a>
@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <h5 class="text-white mb-4">Newsletter</h5>
-                        <p>Stay updated with our latest service listings and offers.</p>
+                        <p>Get updates on newly listed local professionals and exclusive offers.</p>
                         <div class="position-relative mx-auto" style="max-width: 400px;">
                             <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="email" placeholder="Your email">
                             <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
@@ -76,3 +76,4 @@
         <script src="js/main.js"></script>
     </body>
 </html>
+

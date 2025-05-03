@@ -43,10 +43,10 @@ $services_result = mysqli_query($conn, $sql);
                         <div class="container">
                             <div class="row justify-content-start">
                                 <div class="col-10 col-lg-8">
-                                    <h1 class="display-3 text-white animated slideInDown mb-4">Find The Perfect Job That You Deserved</h1>
-                                    <p class="fs-5 fw-medium text-white mb-4 pb-2">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.</p>
-                                    <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Search A Job</a>
-                                    <a href="" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Find A Talent</a>
+                                    <h1 class="display-3 text-white animated slideInDown mb-4">Find Trusted Local Professionals Near You</h1>
+                                    <p class="fs-5 fw-medium text-white mb-4 pb-2">Browse electricians, plumbers, cleaners, and more. We help you connect with verified professionals quickly and reliably.”</p>
+                                    <a href="#searchstart" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Search A Job</a>
+                                    <a href="services.php" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Find A Talent</a>
                                 </div>
                             </div>
                         </div>
@@ -58,10 +58,10 @@ $services_result = mysqli_query($conn, $sql);
                         <div class="container">
                             <div class="row justify-content-start">
                                 <div class="col-10 col-lg-8">
-                                    <h1 class="display-3 text-white animated slideInDown mb-4">Find The Best Startup Job That Fit You</h1>
-                                    <p class="fs-5 fw-medium text-white mb-4 pb-2">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.</p>
-                                    <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Search A Job</a>
-                                    <a href="" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Find A Talent</a>
+                                    <h1 class="display-3 text-white animated slideInDown mb-4">Book Skilled Experts for Your Everyday Needs</h1>
+                                    <p class="fs-5 fw-medium text-white mb-4 pb-2">Browse electricians, plumbers, cleaners, and more. We help you connect with verified professionals quickly and reliably.”</p>
+                                    <a href="#searchstart" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Search Services</a>
+                                    <a href="signup.php" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Become a Provider</a>
                                 </div>
                             </div>
                         </div>
@@ -72,14 +72,14 @@ $services_result = mysqli_query($conn, $sql);
         <!-- Carousel End -->
 
         <!-- Search Start -->
-        <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
+        <div class="container-fluid bg-primary mb-5 wow fadeIn" id="searchstart" data-wow-delay="0.1s" style="padding: 35px;">
             <div class="container">
             <form action="search-results.php" method="GET">
                     <div class="row g-2">
                         <div class="col-md-10">
                             <div class="row g-2">
                                 <div class="col-md-4">
-                                    <input type="text" name="keyword" class="form-control border-0" placeholder="Keyword" value="<?= isset($_GET['keyword']) ? htmlspecialchars($_GET['keyword']) : '' ?>" />
+                                    <input type="text" name="keyword" class="form-control border-0" placeholder="Search by skill (e.g., door fiz, whitewashing, etc.)" value="<?= isset($_GET['keyword']) ? htmlspecialchars($_GET['keyword']) : '' ?>" />
                                 </div>
                                 <div class="col-md-4">
                                     <select name="category" class="form-select border-0">
@@ -179,7 +179,7 @@ $services_result = mysqli_query($conn, $sql);
                     </div>
                     <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                         <h1 class="mb-4">Connecting You With Trusted Local Experts</h1>
-                        <p class="mb-4">Our platform helps you find skilled service providers near you—electricians, plumbers, painters, and more. We ensure quality, reliability, and transparency.</p>
+                        <p class="mb-4">Our platform helps you book skilled local professionals for home repairs, cleaning, maintenance, and more.</p>
                         <p><i class="fa fa-check text-primary me-3"></i>Verified Local Professionals</p>
                         <p><i class="fa fa-check text-primary me-3"></i>Easy Booking & Communication</p>
                         <p><i class="fa fa-check text-primary me-3"></i>Trusted by Hundreds of Users</p>
