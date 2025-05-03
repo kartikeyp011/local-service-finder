@@ -13,11 +13,10 @@ require_once 'config.php';
 $username = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Valued Customer';
 $customer_id = $_SESSION['user_id'];
 
-// Fetch total bookings, completed, pending, and rejected
 $query = "SELECT COUNT(*) AS total_bookings, 
-                 SUM(status = 'approved') AS completed,
+                 SUM(status = 'completed') AS completed,
                  SUM(status = 'pending') AS pending,
-                 SUM(status = 'rejected') AS rejected
+                 SUM(status = 'canceled') AS canceled
           FROM bookings
           WHERE customer_id = ?";
 $stmt = $conn->prepare($query);
@@ -44,7 +43,7 @@ while ($row = $result_recent->fetch_assoc()) {
     $recent_bookings[] = [
         'title' => htmlspecialchars($row['title']),
         'date' => date('F j, Y', strtotime($row['created_at'])),
-        'status' => ucfirst($row['status']),
+        'status' => ucfirst($row['status']), // Make sure 'completed' is shown properly
     ];
 }
 
@@ -151,6 +150,16 @@ $conn->close();
                 </div>
             </div>
         </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-danger shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Canceled Services</h5>
+                    <p class="fs-3"><?= $stats['canceled'] ?></p>
+                </div>
+            </div>
+        </div>
+</div>
+
     </div>
 
     <!-- Welcome Panel with Action Tips -->

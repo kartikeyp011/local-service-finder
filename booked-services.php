@@ -1,92 +1,162 @@
-<?php
-session_start();
-include('config.php');
+<?php 
+session_start(); 
 
-// Ensure the user is logged in and is a customer
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'customer') {
-    header('Location: login.php');
-    exit();
+// Check if user is logged in and is a customer
+if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] != 'customer') {
+    header("Location: login.php");
+    exit;
 }
 
-// Get the logged-in customer's ID
-$customer_id = $_SESSION['user_id'];
+$conn = new mysqli("localhost", "root", "", "local_service_finder");
 
-// SQL to retrieve booked services for the customer, with service details
-$sql = "
-    SELECT b.id AS booking_id, s.title AS service_title, s.category, u.name AS provider_name, s.price, b.status, b.created_at
-    FROM bookings b
-    JOIN services s ON b.service_id = s.id
-    JOIN users u ON s.provider_id = u.id
-    WHERE b.customer_id = ? 
-    ORDER BY b.created_at DESC
-";
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-// Prepare the query
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $customer_id);
+// Fetch bookings of the logged-in customer
+$stmt = $conn->prepare("SELECT b.id, b.service_id, b.message, b.status, b.created_at, s.title, s.provider_id 
+                        FROM bookings b 
+                        JOIN services s ON b.service_id = s.id 
+                        WHERE b.customer_id = ?");
+$stmt->bind_param("i", $_SESSION['user_id']);
 $stmt->execute();
 $result = $stmt->get_result();
+
+// Check for errors
+if (!$result) {
+    die("Query failed: " . $conn->error);
+}
+
+$current_page = 'booked-services';
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Booked Services - Local Service Finder</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booked Services</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap 5 & FontAwesome -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .sidebar {
+            height: 100vh;
+            background: #343a40;
+            color: #fff;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 240px;
+            padding-top: 1.5rem;
+        }
+        .sidebar a {
+            color: #adb5bd;
+            text-decoration: none;
+            display: block;
+            padding: 0.75rem 1.5rem;
+            transition: all 0.2s;
+        }
+        .sidebar a:hover,
+        .sidebar a.active {
+            background-color: #495057;
+            color: #fff;
+        }
+        .main {
+            margin-left: 240px;
+            padding: 2rem;
+        }
+        .status {
+            font-weight: bold;
+        }
+        .pending {
+            background-color: #ffc107; /* yellow */
+            color: black;
+            padding: 0.25rem 0.5rem;
+            border-radius: 5px;
+        }
+        .approved {
+            background-color: #28a745; /* green */
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 5px;
+        }
+        .rejected {
+            background-color: #dc3545; /* red */
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 5px;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 1rem 2rem rgba(0,0,0,0.1);
+        }
+        .card i {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
 </head>
 <body>
 
-<!-- Sidebar and Navbar (assumed you have already done this) -->
+<!-- Sidebar Navigation -->
+<nav class="sidebar">
+    <div class="text-center mb-4">
+        <i class="fas fa-user-circle fa-3x"></i>
+        <h5 class="mt-2"><?= htmlspecialchars($_SESSION['user_name']) ?></h5>
+    </div>
+    <a href="customer-dashboard.php" class="<?= ($current_page == 'customer-dashboard') ? 'active' : '' ?>"><i class="fas fa-home me-2"></i>Dashboard</a>
+    <a href="booked-services.php" class="active"><i class="fas fa-clipboard-list me-2"></i>Booked Services</a>
+    <a href="edit_profile.php"><i class="fas fa-user-edit me-2"></i>Edit Profile</a>
+    <a href="service_history.php"><i class="fas fa-history me-2"></i>Service History</a>
+    <a href="logout.php"><i class="fas fa-sign-out-alt me-2"></i>Logout</a>
+</nav>
 
-<div class="container mt-4">
-    <h2>Your Booked Services</h2>
+<!-- Main Content -->
+<main class="main">
+    <h2 class="fw-bold">My Booked Services</h2>
     <?php if ($result->num_rows > 0): ?>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Service Title</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">Provider</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Booking Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($row = $result->fetch_assoc()): ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($row['service_title']); ?></td>
-                        <td><?php echo htmlspecialchars($row['category']); ?></td>
-                        <td><?php echo htmlspecialchars($row['provider_name']); ?></td>
-                        <td>₹<?php echo number_format($row['price'], 2); ?></td>
-                        <td>
-                            <span class="badge 
-                                <?php echo $row['status'] === 'approved' ? 'badge-success' : 'badge-warning'; ?>">
-                                <?php echo ucfirst($row['status']); ?>
-                            </span>
-                        </td>
-                        <td><?php echo date("d M Y", strtotime($row['created_at'])); ?></td>
-                    </tr>
-                <?php endwhile; ?>
-            </tbody>
-        </table>
+        <?php while ($booking = $result->fetch_assoc()): ?>
+            <div class="card shadow-sm mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0"><?= htmlspecialchars($booking['title']) ?></h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Message:</strong> <?= htmlspecialchars($booking['message']) ?></p>
+                    <p><strong>Status:</strong> 
+                        <span class="status 
+                            <?php 
+                                // Assign class based on status
+                                if ($booking['status'] == 'pending') {
+                                    echo 'pending';
+                                } elseif ($booking['status'] == 'completed') {
+                                    echo 'approved'; // Green for completed
+                                } elseif ($booking['status'] == 'canceled') {
+                                    echo 'rejected'; // Red for canceled
+                                }
+                            ?>">
+                            <?= ucfirst($booking['status']) ?>
+                        </span>
+                    </p>
+
+                    <p><strong>Booked On:</strong> <?= date("F j, Y, g:i a", strtotime($booking['created_at'])) ?></p>
+                </div>
+            </div>
+        <?php endwhile; ?>
     <?php else: ?>
-        <p>You have not booked any services yet.</p>
+        <p>You have no booked services yet.</p>
     <?php endif; ?>
-</div>
+</main>
 
-<!-- Bootstrap JS (optional) -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 
-<?php
-// Close the database connection
+<?php 
 $stmt->close();
 $conn->close();
 ?>
