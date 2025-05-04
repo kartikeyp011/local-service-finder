@@ -37,25 +37,32 @@ if ($result->num_rows > 0):
     while ($service = $result->fetch_assoc()):
 ?>
     <div class="job-item p-4 mb-4">
-        <div class="row g-4">
-            <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                <img class="flex-shrink-0 img-fluid border rounded" src="img/com-logo-1.jpg" alt="" style="width: 80px; height: 80px;">
-                <div class="text-start ps-4">
-                    <h5 class="mb-3"><?= htmlspecialchars($service['title']); ?></h5>
-                    <span class="text-truncate me-3"><i class="fa fa-user text-primary me-2"></i><?= htmlspecialchars($service['provider_name']); ?></span>
-                    <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i><?= htmlspecialchars($service['location']); ?></span>
-                    <span class="text-truncate me-0"><i class="fa fa-rupee-sign text-primary me-2"></i><?= number_format($service['price'], 2); ?></span>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
-                <div class="d-flex mb-3">
-                    <a class="btn btn-light btn-square me-3" href="#"><i class="far fa-heart text-primary"></i></a>
-                    <a class="btn btn-primary" href="#">View Details</a>
-                </div>
-                <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>Posted: <?= date("d M, Y", strtotime($service['created_at'])); ?></small>
+    <div class="row g-4">
+        <div class="col-sm-12 col-md-8 d-flex align-items-center">
+            <img class="flex-shrink-0 img-fluid border rounded" src="img/com-logo-1.jpg" alt="" style="width: 80px; height: 80px;">
+            <div class="text-start ps-4">
+                <h5 class="mb-3"><?= htmlspecialchars($service['title']); ?></h5>
+                <span class="text-truncate me-3"><i class="fa fa-user text-primary me-2"></i><?= htmlspecialchars($service['provider_name']); ?></span>
+                <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i><?= htmlspecialchars($service['location']); ?></span>
+                <span class="text-truncate me-0"><i class="fa fa-rupee-sign text-primary me-2"></i><?= number_format($service['price'], 2); ?></span>
             </div>
         </div>
+        <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
+            <div class="d-flex mb-3">
+                <a class="btn btn-light btn-square me-3" href="#"><i class="far fa-heart text-primary"></i></a>
+                <a class="btn btn-primary me-2" href="service-detail.php?id=<?= $service['id'] ?>">View Details</a>
+                <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'customer'): ?>
+                    <form method="POST" action="book-service.php" class="d-inline">
+                        <input type="hidden" name="service_id" value="<?= $service['id'] ?>">
+                        <button type="submit" class="btn btn-success">Book Now</button>
+                    </form>
+                <?php endif; ?>
+            </div>
+            <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>Posted: <?= date("d M, Y", strtotime($service['created_at'])); ?></small>
+        </div>
     </div>
+</div>
+
 <?php
     endwhile;
 else:

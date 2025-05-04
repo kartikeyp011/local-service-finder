@@ -52,6 +52,7 @@ $current_page = 'booked-services';
             left: 0;
             width: 240px;
             padding-top: 1.5rem;
+            transition: width 0.3s;
         }
         .sidebar a {
             color: #adb5bd;
@@ -64,6 +65,16 @@ $current_page = 'booked-services';
         .sidebar a.active {
             background-color: #495057;
             color: #fff;
+        }
+        .sidebar .user-info {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .sidebar .user-info img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
         }
         .main {
             margin-left: 240px;
@@ -104,14 +115,14 @@ $current_page = 'booked-services';
 
 <!-- Sidebar Navigation -->
 <nav class="sidebar">
-    <div class="text-center mb-4">
-        <i class="fas fa-user-circle fa-3x"></i>
-        <h5 class="mt-2"><?= htmlspecialchars($_SESSION['user_name']) ?></h5>
+    <div class="user-info">
+        <img src="https://via.placeholder.com/50" alt="User Photo">
+        <h5><?= htmlspecialchars($_SESSION['user_name']) ?></h5>
     </div>
     <a href="customer-dashboard.php" class="<?= ($current_page == 'customer-dashboard') ? 'active' : '' ?>"><i class="fas fa-home me-2"></i>Dashboard</a>
-    <a href="booked-services.php" class="active"><i class="fas fa-clipboard-list me-2"></i>Booked Services</a>
-    <a href="edit_profile.php"><i class="fas fa-user-edit me-2"></i>Edit Profile</a>
-    <a href="service_history.php"><i class="fas fa-history me-2"></i>Service History</a>
+    <a href="booked-services.php" class="<?= ($current_page == 'booked-services') ? 'active' : '' ?>"><i class="fas fa-clipboard-list me-2"></i>Booked Services</a>
+    <a href="edit_profile.php" class="<?= ($current_page == 'edit-profile') ? 'active' : '' ?>"><i class="fas fa-user-edit me-2"></i>Edit Profile</a>
+    <a href="service_history.php" class="<?= ($current_page == 'service-history') ? 'active' : '' ?>"><i class="fas fa-history me-2"></i>Service History</a>
     <a href="logout.php"><i class="fas fa-sign-out-alt me-2"></i>Logout</a>
 </nav>
 
